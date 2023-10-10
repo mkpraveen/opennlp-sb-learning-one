@@ -1,0 +1,6 @@
+This is one example of tokenizer.
+I<SPLIT>, you<SPLIT>, everyone can tokenize.
+Triangle<SPLIT>, rectangle<SPLIT>, circle<SPLIT>, line are shapes.
+opennlp<SPLIT>.<SPLIT>tools<SPLIT>.<SPLIT>tokenize
+java<SPLIT>.<SPLIT>util<SPLIT>.<SPLIT>ArrayList
+java<SPLIT>.<SPLIT>lang<SPLIT>.<SPLIT>Object
