@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-OpennlpSbLearningOneApplication<opennlp-sb-learning-one>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.praveenmk.nlp.OpennlpSbLearningOneApplication",
+            "projectName": "opennlp-sb-learning-one",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

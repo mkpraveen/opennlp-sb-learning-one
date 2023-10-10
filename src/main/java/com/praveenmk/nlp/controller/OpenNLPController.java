@@ -36,21 +36,19 @@ public class OpenNLPController {
 	@GetMapping(value = "/train-model")
 	public String getTrainModel() throws IOException {
 
-		/**
-		 * Read human understandable data & train a model
-		 */
 		// Read file with examples of tokenization.
 		InputStreamFactory inputStreamFactory = new MarkableFileInputStreamFactory(new File("tokenizerdata.txt"));
 		ObjectStream<String> lineStream = new PlainTextByLineStream(inputStreamFactory, StandardCharsets.UTF_8);
-		ObjectStream<TokenSample> sampleStream = new TokenSampleStream(lineStream);
- 
+		ObjectStream<TokenSample> tokenSampleStream = new TokenSampleStream(lineStream);
+
 		// Train a model from the file read above
-		TokenizerFactory factory = new TokenizerFactory("en", null, false, null);
-		TokenizerModel model = TokenizerME.train(sampleStream, factory, TrainingParameters.defaultParams());
+		TokenizerFactory tokenizerFactory = new TokenizerFactory("en", null, false, null);
+		TokenizerModel tokenizerModel = TokenizerME.train(tokenSampleStream, tokenizerFactory,
+				TrainingParameters.defaultParams());
  
 		// Serialize model to some file so that next time we don't have to again train a
 		// model. Next time We can just load this file directly into model.
-		model.serialize(new File("tokenizermodel.bin"));
+		tokenizerModel.serialize(new File("tokenizermodel.bin"));
 
 		// Read file with classifications samples of sentences.
 		inputStreamFactory = new MarkableFileInputStreamFactory(
@@ -117,16 +115,9 @@ public class OpenNLPController {
  
 		// Use model that was created in earlier tokenizer tutorial
 		try (InputStream modelIn = new FileInputStream("tokenizermodel.bin")) {
- 
+			
 			TokenizerME myCategorizer = new TokenizerME(new TokenizerModel(modelIn));
- 
-			String[] tokens = myCategorizer.tokenize(sentence);
- 
-			for (String t : tokens) {
-				System.out.println("Tokens: " + t);
-			}
-			return tokens;
- 
+			return myCategorizer.tokenize(sentence); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
